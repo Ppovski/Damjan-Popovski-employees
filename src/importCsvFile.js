@@ -46,33 +46,35 @@ export default function ImportCsvFile() {
     }
 
     // algorimta start 
-    const result = arrayData.reduce((acc, el) => {
+
+
+      
+      const result = arrayData.reduce((acc, el) => {
         let c = acc[el[1]];
         if (!c) {
-            c = acc[el[1]] = {
-                e1: 0,
-                e2: 0,
-                data: []
-            };
+          c = acc[el[1]] = {
+            e1: 0,
+            e2: 0,
+            data: []
+          };
         };
-
+        
         c.data.forEach(d => {
             c.e1 = d[0];
             c.e2 = el[0];
         });
-
+        
         c.data.push(el);
         return acc;
-
-    }, {});
-
-    const deObjectify = Object.entries(result).map(([projectId, { e1, e2 }]) => ({ e1, e2, projectId }));
-
-    console.log(deObjectify.map(x=>x.e1),"12312312")
-
-
-    console.log("inner workings");
-    console.log(result.e1);
+      
+      }, {});
+      
+      const deObjectify = Object.entries(result).map(([projectId, {e1, e2}]) => ({e1, e2, projectId}));
+      
+      console.log(deObjectify);
+      
+      console.log("inner workings");
+      console.log(result);
 
     // algoritam end 
 
@@ -132,8 +134,7 @@ export default function ImportCsvFile() {
                 </div>
                 <div>
                     <h1>The pair of employees who have worked together</h1>
-                    <p><b>{deObjectify.map(x => x.e1)} | {deObjectify.map(x => x.e2)}</b></p>
-                    <p></p>
+                    <p><b>{deObjectify.map(x => x.e1 + "," && x.e1 === 0 ? x.e1 = "/" : x.e1 + ",")}  | {deObjectify.map(x => x.e2 + ","  && x.e2 === 0 ? x.e2 = "/" : x.e2 + ",")} - Projcets:{deObjectify.map(x => x.projectId + "," &&  x.projectId === "undefined" ? x.projectId = "/" : x.projectId + "," )}</b></p>
                 </div>
             </form>
         </Container>
